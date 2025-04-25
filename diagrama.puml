@@ -1,18 +1,31 @@
 @startuml "Sistema de Control de Parqueo"
 
+' Configuración de estilos
 skinparam class {
-    BackgroundColor LightYellow
-    BorderColor Black
+    BackgroundColor White
     ArrowColor Black
+    BorderColor Black
 }
 
+skinparam classFontSize 14
+skinparam classAttributeFontSize 12
+skinparam classMethodFontSize 12
+
+' Definición de colores
+!define MAIN_COLOR #E2F0FF
+!define SECONDARY_COLOR #FFF8DC
+!define HIGHLIGHT_COLOR #FFE4E1
+
+' Clases
 class CarroParqueado {
+    <back:MAIN_COLOR>Atributos</back>
     -marca: String
     -modelo: String
     -color: String
     -placa: String
     -horaEntrada: LocalDateTime
-    --
+    ..
+    <back:SECONDARY_COLOR>Métodos</back>
     +CarroParqueado(marca: String, modelo: String, color: String, placa: String)
     +getMarca(): String
     +getModelo(): String
@@ -25,8 +38,10 @@ class CarroParqueado {
 }
 
 class Parquimetro {
+    <back:MAIN_COLOR>Atributos</back>
     -minutosPagados: int
-    --
+    ..
+    <back:SECONDARY_COLOR>Métodos</back>
     +Parquimetro()
     +getMinutosPagados(): int
     +agregarMinutos(minutos: int): boolean
@@ -34,12 +49,14 @@ class Parquimetro {
 }
 
 class TiqueteMulta {
+    <back:MAIN_COLOR>Atributos</back>
     -fecha: LocalDateTime
     -oficial: OficialPolicia
     -carro: CarroParqueado
     -minutosExcedidos: int
     -montoMulta: double
-    --
+    ..
+    <back:SECONDARY_COLOR>Métodos</back>
     +TiqueteMulta(oficial: OficialPolicia, carro: CarroParqueado, minutosExcedidos: int)
     +getFecha(): LocalDateTime
     +getOficial(): OficialPolicia
@@ -47,23 +64,39 @@ class TiqueteMulta {
     +getMinutosExcedidos(): int
     +getMontoMulta(): double
     +generarReporte(): String
-    +toString(): 
-    
+    +toString(): String
 }
 
 class OficialPolicia {
+    <back:MAIN_COLOR>Atributos</back>
     -nombre: String
     -placa: String
-    --
+    ..
+    <back:SECONDARY_COLOR>Métodos</back>
     +OficialPolicia(nombre: String, placa: String)
     +getNombre(): String
     +getPlaca(): String
     +emitirMulta(carro: CarroParqueado, parquimetro: Parquimetro): TiqueteMulta
 }
 
-' Relaciones
+' Relaciones con descripciones mejoradas
 OficialPolicia "1" -- "*" TiqueteMulta : emite >
-CarroParqueado "1" -- "*" TiqueteMulta : recibe >
+note on link: Un oficial puede emitir\nmuchas multas
+
+CarroParqueado "1" -- "*" TiqueteMulta : corresponde a >
+note on link: Un carro puede tener\nmuchas multas
+
 Parquimetro "1" -- "*" TiqueteMulta : verifica >
+note on link: Un parquímetro puede estar\nasociado a muchas multas
+
+' Título del diagrama
+title Sistema de Control de Parqueo\n
+
+' Notas explicativas
+note "Clase principal que gestiona\nlos vehículos estacionados" as N1
+CarroParqueado .. N1
+
+note "Controla el tiempo\nde estacionamiento" as N2
+Parquimetro .. N2
 
 @enduml 
