@@ -1,0 +1,69 @@
+@startuml "Sistema de Control de Parqueo"
+
+skinparam class {
+    BackgroundColor LightYellow
+    BorderColor Black
+    ArrowColor Black
+}
+
+class CarroParqueado {
+    -marca: String
+    -modelo: String
+    -color: String
+    -placa: String
+    -horaEntrada: LocalDateTime
+    --
+    +CarroParqueado(marca: String, modelo: String, color: String, placa: String)
+    +getMarca(): String
+    +getModelo(): String
+    +getColor(): String
+    +getPlaca(): String
+    +getHoraEntrada(): LocalDateTime
+    +getMinutosParqueado(): int
+    +actualizarTiempoParqueado(): void
+    +toString(): String
+}
+
+class Parquimetro {
+    -minutosPagados: int
+    --
+    +Parquimetro()
+    +getMinutosPagados(): int
+    +agregarMinutos(minutos: int): boolean
+    +toString(): String
+}
+
+class TiqueteMulta {
+    -fecha: LocalDateTime
+    -oficial: OficialPolicia
+    -carro: CarroParqueado
+    -minutosExcedidos: int
+    -montoMulta: double
+    --
+    +TiqueteMulta(oficial: OficialPolicia, carro: CarroParqueado, minutosExcedidos: int)
+    +getFecha(): LocalDateTime
+    +getOficial(): OficialPolicia
+    +getCarro(): CarroParqueado
+    +getMinutosExcedidos(): int
+    +getMontoMulta(): double
+    +generarReporte(): String
+    +toString(): 
+    
+}
+
+class OficialPolicia {
+    -nombre: String
+    -placa: String
+    --
+    +OficialPolicia(nombre: String, placa: String)
+    +getNombre(): String
+    +getPlaca(): String
+    +emitirMulta(carro: CarroParqueado, parquimetro: Parquimetro): TiqueteMulta
+}
+
+' Relaciones
+OficialPolicia "1" -- "*" TiqueteMulta : emite >
+CarroParqueado "1" -- "*" TiqueteMulta : recibe >
+Parquimetro "1" -- "*" TiqueteMulta : verifica >
+
+@enduml 
