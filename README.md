@@ -110,8 +110,3 @@ Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE.md para más d
 * **Sergio Andres Silva** - *Desarrollador*
 * **Marianie Vasquez** - *Desarrolladora*
 
-## Agradecimientos 🎁
-
-* A la Universidad por el apoyo en el desarrollo del proyecto
-* A la comunidad de desarrollo Java
-* A todos los que han contribuido con sugerencias y mejoras 
