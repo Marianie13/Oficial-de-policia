@@ -1,6 +1,6 @@
 /**
  * Clase que representa un oficial de policía que inspecciona los carros parqueados.
- * Se encarga de verificar el tiempo de parqueo y emitir multas cuando sea necesario.
+ * Se encarga de verificar el tiempo de parqueo y emitir multas cuando es necesario.
  */
 public class OficialPolicia {
     // Atributos del oficial
