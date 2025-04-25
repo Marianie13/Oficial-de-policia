@@ -1,3 +1,6 @@
+/**
+ * Controla el tiempo pagado para el estacionamiento.
+ */
 public class Parquimetro {
     private int minutosPagados;
     private static final int MINUTOS_MAXIMOS = 120; // Máximo 2 horas de parqueo
@@ -6,6 +9,10 @@ public class Parquimetro {
         this.minutosPagados = 0;
     }
 
+    /**
+     * Agrega minutos al tiempo pagado.
+     * @return true si se agregaron los minutos correctamente
+     */
     public boolean agregarMinutos(int minutos) {
         if (minutos < 0) {
             return false;
@@ -37,8 +44,6 @@ public class Parquimetro {
 
     @Override
     public String toString() {
-        return "Parquimetro{" +
-                "minutosPagados=" + minutosPagados +
-                '}';
+        return "Tiempo pagado: " + minutosPagados + " minutos";
     }
 } 

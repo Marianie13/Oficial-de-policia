@@ -1,9 +1,9 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
- * Clase que representa un carro parqueado en un estacionamiento.
- * Mantiene la información básica del vehículo y controla el tiempo de parqueo.
+ * Representa un vehículo estacionado en el sistema.
  */
 public class CarroParqueado {
     // Atributos que describen las características del carro
@@ -14,23 +14,16 @@ public class CarroParqueado {
     
     // Atributos para el control del tiempo
     private LocalDateTime horaEntrada;    // Momento exacto en que el carro ingresó
-    private int minutosParqueado;         // Cantidad de minutos que lleva parqueado
 
     /**
-     * Constructor de la clase CarroParqueado
-     * Inicializa un nuevo carro con sus características básicas y registra su hora de entrada
-     * @param marca Marca del vehículo
-     * @param modelo Modelo del vehículo
-     * @param color Color del vehículo
-     * @param placa Placa o matrícula del vehículo
+     * Constructor para crear un nuevo carro parqueado.
      */
     public CarroParqueado(String marca, String modelo, String color, String placa) {
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
         this.placa = placa;
-        this.horaEntrada = LocalDateTime.now();  // Registra la hora actual como hora de entrada
-        this.minutosParqueado = 0;               // Inicia con 0 minutos parqueado
+        this.horaEntrada = LocalDateTime.now();
     }
 
     /**
@@ -80,8 +73,7 @@ public class CarroParqueado {
      * @return Cantidad de minutos que el carro lleva parqueado
      */
     public int getMinutosParqueado() {
-        actualizarTiempoParqueado();
-        return minutosParqueado;
+        return (int) ChronoUnit.MINUTES.between(horaEntrada, LocalDateTime.now());
     }
 
     /**
@@ -91,13 +83,6 @@ public class CarroParqueado {
      */
     @Override
     public String toString() {
-        actualizarTiempoParqueado();
-        return "CarroParqueado{" +
-                "marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", color='" + color + '\'' +
-                ", placa='" + placa + '\'' +
-                ", minutosParqueado=" + minutosParqueado +
-                '}';
+        return "Vehículo: " + marca + " " + modelo + ", Color: " + color + ", Placa: " + placa;
     }
 } 
